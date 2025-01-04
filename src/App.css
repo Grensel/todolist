@@ -1,0 +1,16 @@
+.app {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+
+.app > div {
+  margin-right: 50px;
+}
+
+.todolist {
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
+}
