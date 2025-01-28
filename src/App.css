@@ -12,6 +12,12 @@
   padding: 0;
 }
 
+button {
+  margin: 0 10px;
+  padding: 0 10px;
+  border-radius: 4px;
+}
+
 a {
   cursor: pointer;
   text-decoration: none;
@@ -30,4 +36,23 @@ ul {
   border-radius: 15px;
   border: 2px solid rgba(0, 0, 0, 0.2);
   background-color: rgba(0, 0, 0, 0.1);
+}
+.task-done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.task {
+  font-weight: 600;
+}
+
+.active-filter {
+  background-color: lightgreen;
+}
+
+.error {
+  border: red 1px solid;
+}
+
+.error-message {
+  color: red;
 }
