@@ -1,5 +1,5 @@
 # React + TypeScript + Vite
 
-# My Todolist
+# My todolist
 
 https://Grensel.github.io/todolist/
