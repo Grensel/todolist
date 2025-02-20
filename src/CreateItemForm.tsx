@@ -1,48 +1,52 @@
-import { ChangeEvent, useState, KeyboardEvent } from "react";
-import { Button } from "./Button";
+import {type ChangeEvent, type KeyboardEvent, useState} from 'react'
+import TextField from '@mui/material/TextField'
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import IconButton from '@mui/material/IconButton'
 
-export type CreateItemFormPropsType = {
-  createItem: (title: string) => void;
-};
+type CreateItemFormPropsType = {
+  onCreateItem: (title: string) => void
+}
 
-export const CreateItemForm = ({ createItem }: CreateItemFormPropsType) => {
-  const [itemTitle, setItemTitle] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
-  const changeItemTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setError(null);
-    setItemTitle(event.currentTarget.value);
-  };
-  const maxTtitleLengthError: boolean = itemTitle.length > 10;
-  const createItemOnEnterHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && itemTitle && !maxTtitleLengthError) createItemHandler();
-  };
+export const CreateItemForm = ({ onCreateItem }: CreateItemFormPropsType) => {
+  const [title, setTitle] = useState('')
+  const [error, setError] = useState<string | null>(null)
+
+  const trimmedTitle = title.trim()
   const createItemHandler = () => {
-    const trimmedTitle = itemTitle.trim();
-    if (trimmedTitle !== "") {
-      createItem(itemTitle);
+    if (trimmedTitle !== '') {
+      onCreateItem(trimmedTitle)
+      setTitle('')
     } else {
-      setError("Title is required");
+      setError('Title is required')
     }
-    setItemTitle("");
-  };
+  }
+
+  const changeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.currentTarget.value)
+    setError(null)
+  }
+
+  const createItemOnEnterHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      createItemHandler()
+    }
+  }
+
   return (
     <div>
-      <input
-        className={error ? "error" : ""}
-        placeholder={"Write new task"}
-        value={itemTitle}
-        onChange={changeItemTitleHandler}
+      <TextField
+        label={'Enter a title'}
+        variant={'outlined'}
+        value={title}
+        size={'small'}
+        error={!!error}
+        helperText={error}
+        onChange={changeTitleHandler}
         onKeyDown={createItemOnEnterHandler}
       />
-      <Button
-        title={"+"}
-        disabled={!itemTitle.length || maxTtitleLengthError}
-        onClickHandler={createItemHandler}
-      />
-      {error && <div className={"error-message"}>{error}</div>}
-      {!itemTitle && <div>Enter title, please</div>}
-      {itemTitle && !maxTtitleLengthError && <div>Mx title length is 10 charters</div>}
-      {maxTtitleLengthError && <div style={{ color: "red" }}>You title is to long</div>}
-    </div>
-  );
-};
+      <IconButton disabled={!trimmedTitle.length} onClick={createItemHandler} color={'primary'}>
+        <AddBoxIcon />
+      </IconButton>
+  </div>
+  )
+}
