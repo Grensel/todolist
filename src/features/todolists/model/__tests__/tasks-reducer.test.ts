@@ -1,12 +1,12 @@
 import { beforeEach, expect, test } from 'vitest'
-import type {TasksState} from '../app/App'
 import {
   changeTaskStatusAC, changeTaskTitleAC,
   createTaskAC,
   deleteTaskAC,
-  tasksReducer
-} from './tasks-reducer'
-import {createTodolistAC, deleteTodolistAC} from './todolists-reducer'
+  tasksReducer,
+  TasksState
+} from '@/features/todolists/model/tasks-reducer'
+import {createTodolistAC, deleteTodolistAC} from '@/features/todolists/model/todolists-reducer'
 
 let startState: TasksState = {}
 
@@ -82,7 +82,7 @@ test('array should be created for new todolist', () => {
 })
 
 test('property with todolistId should be deleted', () => {
-  const endState = tasksReducer(startState, deleteTodolistAC('todolistId2'))
+  const endState = tasksReducer(startState, deleteTodolistAC({id: 'todolistId2'}))
 
   const keys = Object.keys(endState)
 
